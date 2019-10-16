@@ -25,9 +25,5 @@ class MarbleManager:
             userAmount = self.marbleRecords[server][author.id]
             name = author.name if author.nick == None else author.nick
             await channel.send( str(name) + ": " + str(userAmount) + (" marble." if userAmount==1 else " marbles.") )     
-    
-    def helloWorld(self):
-        print("Hello world!")
-        
-        
+              
 marbleManager = MarbleManager()

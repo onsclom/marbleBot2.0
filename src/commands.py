@@ -16,7 +16,6 @@ async def processCommand(message, commandPrefix):
         await message.channel.send(helpMessage)
         
     elif command == "ping":
-        marbleManager.helloWorld()
         await message.channel.send("pong")
         
     elif command == "register":
