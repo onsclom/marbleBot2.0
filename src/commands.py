@@ -12,7 +12,7 @@ async def processCommand(message, commandPrefix):
     if command == "help":
         helpMessage = ""
         for x in commands:
-            helpMessage += x + "\n"
+            helpMessage += x + "\n\n"
         await message.channel.send(helpMessage)
         
     elif command == "ping":
