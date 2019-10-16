@@ -1,16 +1,19 @@
-# bot.py
 import os
-
 import discord
 from dotenv import load_dotenv
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client()
+class MyClient(discord.Client):
+    async def on_ready(self):
+        print('Logged on as {0}!'.format(self.user))
 
-@client.event
-async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    async def on_message(self, message):
+        if message.content == "ping":
+            await message.channel.send('pong')
+            
+        print('Message from {0.author}: {0.content}'.format(message))
 
+client = MyClient()
 client.run(token)
