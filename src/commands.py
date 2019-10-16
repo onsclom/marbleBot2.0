@@ -3,7 +3,8 @@ from MarbleManager import marbleManager
 commands = [
     "**help:** you just used it", 
     "**ping:** pong", 
-    "**register:** register and recieve a random amount of marbles from 20 to 40"
+    "**register:** register and recieve a random amount of marbles from 20 to 40",
+    "**collection:** shows your current marble amount"
     ]
 
 async def processCommand(message, commandPrefix):

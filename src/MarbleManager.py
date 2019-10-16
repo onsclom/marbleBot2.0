@@ -1,6 +1,5 @@
 import random
 import shelve
-import os
 
 class MarbleManager:
     
