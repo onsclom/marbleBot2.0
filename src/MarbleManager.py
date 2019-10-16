@@ -1,11 +1,14 @@
 import random
+import shelve
+import os
 
 class MarbleManager:
     
-    marbleRecords = {} #a dictionary of dictionaries to keep track of the marble records for each server
+    def __init__(self):
+        self.marbleRecords = shelve.open("data", writeback=True)
     
     async def register(self, author, channel):
-        server = channel.guild.id 
+        server = str(channel.guild.id) 
         if server not in self.marbleRecords: #if server doesn't have record
             self.marbleRecords[server]={} #create new empty dict
             
@@ -18,7 +21,7 @@ class MarbleManager:
             await channel.send( str(name) + " has registered and recieved " + str(randomAmount) + " marbles" + ("!" if randomAmount>=38 else ".") )
             
     async def getCollection(self, author, channel):
-        server = channel.guild.id
+        server = str(channel.guild.id)
         if server not in self.marbleRecords or author.id not in self.marbleRecords[server]:
             await channel.send("You are not registered dummy.") 
         else:
