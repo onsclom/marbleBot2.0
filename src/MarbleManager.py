@@ -2,7 +2,7 @@ import random
 import shelve
 
 class MarbleManager:
-    
+
     def __init__(self):
         self.marbleRecords = shelve.open("data", writeback=True)
     
@@ -27,5 +27,18 @@ class MarbleManager:
             userAmount = self.marbleRecords[server][author.id]
             name = author.name if author.nick == None else author.nick
             await channel.send( str(name) + ": " + str(userAmount) + (" marble." if userAmount==1 else " marbles.") )     
-              
+            
+    async def coinflip(self, author, channel, bet):
+        server = str(channel.guild.id)
+        name = author.name if author.nick == None else author.nick
+        if self.marbleRecords[server][author.id] >= bet:
+            outcome = random.choice([0,1])
+            if outcome == 1:
+                await channel.send( str(name) + " won " + str(bet) + (" marble." if bet==1 else " marbles.") )
+                self.marbleRecords[server][author.id] += bet
+            else:
+                await channel.send( str(name) + " lost " + str(bet) + (" marble." if bet==1 else " marbles.") )
+                self.marbleRecords[server][author.id] -= bet
+        else:
+            await channel.send("why you trying to break my bot")
 marbleManager = MarbleManager()
