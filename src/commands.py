@@ -4,7 +4,8 @@ commands = [
     "**help:** you just used it", 
     "**ping:** pong", 
     "**register:** register and recieve a random amount of marbles from 20 to 40",
-    "**collection:** shows your current marble amount"
+    "**profile:** shows your current marble amount",
+    "**coinflip [x]:** bets x marbles on a 50/50"
     ]
 
 async def processCommand(message, commandPrefix):
@@ -22,7 +23,7 @@ async def processCommand(message, commandPrefix):
     elif command == "register":
         await marbleManager.register(message.author, message.channel)
         
-    elif command == "collection":
+    elif command == "profile":
         await marbleManager.getCollection(message.author, message.channel)
         
     elif command.split()[0] == "coinflip":
