@@ -24,6 +24,17 @@ async def processCommand(message, commandPrefix):
         
     elif command == "collection":
         await marbleManager.getCollection(message.author, message.channel)
-   
+        
+    elif command.split()[0] == "coinflip":
+        parts = command.split()
+        if len(parts) == 2:
+            if not parts[1].isdigit():
+                await message.channel.send("You didn't specify a number correctly dumbo.")
+            else:
+                #good to go
+                await marbleManager.coinflip(message.author, message.channel, int(parts[1]))
+        else:
+            await message.channel.send("coinflip should have 2 parts seperated by a space dumbass.")    
+        
     else:
         await message.channel.send("Command not recognized. " + commandPrefix + "help to see commands.")
