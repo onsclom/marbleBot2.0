@@ -1,5 +1,6 @@
 import random
 import shelve
+import discord
 
 class MarbleManager:
     
@@ -40,5 +41,31 @@ class MarbleManager:
                 marbleRecords[str(author.id)]["marbles"] -= bet
         else:
             await channel.send("why you trying to break my bot")
+    
+    async def leaderboard(self, author, channel, attribute, client):
+        server = str(channel.guild.id)
+        marbleRecords = shelve.open(server, writeback=True)
+        contendors = []
+        for x in marbleRecords:
+            if attribute in marbleRecords[x]:
+                curUser = channel.guild.get_member(int(x))
+                if curUser != None: #if the user exists in the server
+                    name = curUser.name if curUser.nick == None else curUser.nick
+                    contendors.append((name, marbleRecords[x][attribute]))
+        print(contendors)
+        
+        if len(contendors):
+            message = "```\n"
+            message += "Leaderboard for " + attribute + ":\n\n"
             
+            contendors.sort(key=lambda tup: tup[1], reverse=True)
+            for x in range(len(contendors)):
+                message += str(x+1) + ". " + contendors[x][0] + ": " + str(contendors[x][1]) + "\n"
+            
+            message += "\n```"
+            
+            await channel.send(message)
+        else:
+            await channel.send("Nobody has statistics for " + attribute)
+        
 marbleManager = MarbleManager()

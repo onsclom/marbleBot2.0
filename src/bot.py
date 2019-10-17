@@ -15,7 +15,7 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         print('Message from {0.author}: {0.content}'.format(message))     
         if message.content[0] == commandPrefix:
-            await processCommand(message, commandPrefix)
+            await processCommand(message, commandPrefix, client)
 
 client = MyClient()
 client.run(token)

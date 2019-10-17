@@ -5,10 +5,11 @@ commands = [
     "**ping:** pong", 
     "**register:** register and recieve a random amount of marbles from 20 to 40",
     "**profile:** shows your current marble amount",
-    "**coinflip [x]:** bets x marbles on a 50/50"
+    "**coinflip [x]:** bets x marbles on a 50/50",
+    "**leaderboard [x]:** where x is attribute (like marbles)"
     ]
 
-async def processCommand(message, commandPrefix):
+async def processCommand(message, commandPrefix, client):
     command = message.content[1:] #the message without the commandPrefix
     
     if command == "help":
@@ -35,7 +36,14 @@ async def processCommand(message, commandPrefix):
                 #good to go
                 await marbleManager.coinflip(message.author, message.channel, int(parts[1]))
         else:
-            await message.channel.send("coinflip should have 2 parts seperated by a space dumbass.")    
+            await message.channel.send("coinflip should have 2 parts seperated by a space dumbass.")
+            
+    elif command.split()[0] == "leaderboard":
+        parts = command.split()
+        if len(parts) == 2:
+            await marbleManager.leaderboard(message.author, message.channel, parts[1], client)
+        else:
+            await message.channel.send("leaderboard should have 2 parts seperated by a space dumbass.")    
         
     else:
         await message.channel.send("Command not recognized. " + commandPrefix + "help to see commands.")
