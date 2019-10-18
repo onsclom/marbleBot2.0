@@ -4,10 +4,13 @@ commands = [
     "**help:** you just used it", 
     "**ping:** pong", 
     "**register:** register and recieve a random amount of marbles from 20 to 40",
-    "**collection:** shows your current marble amount"
+    "**profile:** shows your current marble amount",
+    "**coinflip [x]:** bets x marbles on a 50/50",
+    "**leaderboard [x]:** where x is attribute (like marbles)",
+    "**give [x] [@user]:** where x is amount of marbles to give"
     ]
 
-async def processCommand(message, commandPrefix):
+async def processCommand(message, commandPrefix, client):
     command = message.content[1:] #the message without the commandPrefix
     
     if command == "help":
@@ -22,7 +25,7 @@ async def processCommand(message, commandPrefix):
     elif command == "register":
         await marbleManager.register(message.author, message.channel)
         
-    elif command == "collection":
+    elif command == "profile":
         await marbleManager.getCollection(message.author, message.channel)
         
     elif command.split()[0] == "coinflip":
@@ -34,7 +37,24 @@ async def processCommand(message, commandPrefix):
                 #good to go
                 await marbleManager.coinflip(message.author, message.channel, int(parts[1]))
         else:
-            await message.channel.send("coinflip should have 2 parts seperated by a space dumbass.")    
+            await message.channel.send("coinflip should have 2 parts seperated by a space dumbo.")
+            
+    elif command.split()[0] == "leaderboard":
+        parts = command.split()
+        if len(parts) == 2:
+            await marbleManager.leaderboard(message.author, message.channel, parts[1], client)
+        else:
+            await message.channel.send("leaderboard should have 2 parts seperated by a space dumbo.")  
+            
+    elif command.split()[0] == "give":
+        parts = command.split()
+        if len(parts) == 3:
+            if not parts[1].isdigit():
+                await message.channel.send("You didn't specify a number correctly dumbo.")
+            else:
+                await marbleManager.give(message.author, message.channel, int(parts[1]), message.mentions[0])
+        else:
+            await message.channel.send("give should have 3 parts.")
         
     else:
         await message.channel.send("Command not recognized. " + commandPrefix + "help to see commands.")
