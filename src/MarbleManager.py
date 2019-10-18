@@ -67,5 +67,20 @@ class MarbleManager:
             await channel.send(message)
         else:
             await channel.send("Nobody has statistics for " + attribute)
+            
+    async def give(self, author, channel, amount, other):
+        server = str(channel.guild.id)
+        marbleRecords = shelve.open(server, writeback=True)
+        if str(author.id) in marbleRecords and str(other.id) in marbleRecords:
+            if marbleRecords[str(author.id)]["marbles"] >= amount:
+                marbleRecords[str(author.id)]["marbles"] -= amount
+                marbleRecords[str(other.id)]["marbles"] += amount
+                giverName = author.name if author.nick == None else author.nick
+                receiverName = other.name if other.nick == None else other.nick
+                await channel.send(giverName + " gives " + receiverName + " " + str(amount) + (" marble." if amount==1 else " marbles."))
+            else:
+                await channel.send("You do not have enough marbles")
+        else:
+            await channel.send("Someone isn't registered.")
         
 marbleManager = MarbleManager()
