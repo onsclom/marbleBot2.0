@@ -1,4 +1,0 @@
-discord==1.0.1
-discord.py==1.2.3
-virtualenv==16.7.5
-python-dotenv==0.10.3
