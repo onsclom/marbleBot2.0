@@ -10,6 +10,9 @@ commands = [
     "**give [x] [@user]:** where x is amount of marbles to give"
     ]
 
+async def timedReward(client):
+    await marbleManager.dailyReward(client)
+
 async def processCommand(message, commandPrefix, client):
     command = message.content[1:] #the message without the commandPrefix
     
