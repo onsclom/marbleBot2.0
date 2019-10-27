@@ -1,8 +1,22 @@
 import random
 import shelve
 import discord
+import asyncio
 
 class MarbleManager:
+    
+    async def dailyReward(self, client):
+        rewardAmount = 1 # Amount to give
+        interval = 60 * 60 * 6 # 6 hours
+        while True:
+            await asyncio.sleep(interval)
+            print("rewarding now!")
+            for server in client.guilds:
+                marbleRecords = shelve.open(str(server.id), writeback=True)
+                for x in marbleRecords:
+                    marbleRecords[x]["marbles"] = marbleRecords[x]["marbles"] + rewardAmount
+                    print(marbleRecords[x]["marbles"], "to", marbleRecords[x]["marbles"] + rewardAmount)
+                marbleRecords.close()  
     
     async def register(self, author, channel):
         server = str(channel.guild.id) 

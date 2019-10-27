@@ -10,6 +10,9 @@ commands = [
     "**give [x] [@user]:** where x is amount of marbles to give"
     ]
 
+async def timedReward(client):
+    await marbleManager.dailyReward(client)
+
 async def processCommand(message, commandPrefix, client):
     command = message.content[1:] #the message without the commandPrefix
     
@@ -55,6 +58,22 @@ async def processCommand(message, commandPrefix, client):
                 await marbleManager.give(message.author, message.channel, int(parts[1]), message.mentions[0])
         else:
             await message.channel.send("give should have 3 parts.")
+            
+    elif command.split()[0] == "cooltext":
+        userInput = command[len(command.split()[0])+1:]
+        output = ""
+
+        for x in range(len(userInput), 0, -1):
+            blah=" "*x + userInput[x:len(userInput)-x]
+            if userInput[x:len(userInput)-x] != "":
+                output+=blah+"\n"
+
+        for x in range(len(userInput)):
+            blah=" "*x + userInput[x:len(userInput)-x]
+            if userInput[x:len(userInput)-x] != "":
+                output+=blah+"\n"
+
+        await message.channel.send("```\n" + output + "```")    
         
     else:
         await message.channel.send("Command not recognized. " + commandPrefix + "help to see commands.")

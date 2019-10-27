@@ -1,7 +1,7 @@
 import os
 import discord
 from dotenv import load_dotenv
-from commands import processCommand
+from commands import processCommand, timedReward
 
 commandPrefix = "!"
 
@@ -10,7 +10,8 @@ token = os.getenv('DISCORD_TOKEN')
 
 class MyClient(discord.Client):
     async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
+        print(f'Logged on as {self.user}!')
+        await timedReward(self)
 
     async def on_message(self, message):
         print('Message from {0.author}: {0.content}'.format(message))     
