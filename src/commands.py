@@ -46,6 +46,8 @@ async def processCommand(message, commandPrefix, client):
         parts = command.split()
         if len(parts) == 2:
             await marbleManager.leaderboard(message.author, message.channel, parts[1], client)
+        elif len(parts) == 1:
+            await marbleManager.leaderboard(message.author, message.channel, "marbles", client)
         else:
             await message.channel.send("leaderboard should have 2 parts seperated by a space dumbo.")  
             
