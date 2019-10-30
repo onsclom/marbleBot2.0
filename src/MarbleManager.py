@@ -66,19 +66,22 @@ class MarbleManager:
                 if curUser != None: #if the user exists in the server
                     name = curUser.name if curUser.nick == None else curUser.nick
                     contendors.append((name, marbleRecords[x][attribute]))
-        print(contendors)
         
         if len(contendors):
-            message = "```\n"
-            message += "Leaderboard for " + attribute + ":\n\n"
+            currentEmbed = discord.Embed(title=attribute + " Leaderboard", color=0x50bdfe)
             
             contendors.sort(key=lambda tup: tup[1], reverse=True)
+            
+            names = ""
+            marbles = ""
             for x in range(len(contendors)):
-                message += str(x+1) + ". " + contendors[x][0] + ": " + str(contendors[x][1]) + "\n"
+                names += str(x+1) + ". " + contendors[x][0] + "\n"
+                marbles += str(contendors[x][1]) + "\n"
             
-            message += "\n```"
+            currentEmbed.add_field(name="Names", value=names, inline=True)
+            currentEmbed.add_field(name="Marbles", value=marbles, inline=True)
             
-            await channel.send(message)
+            await channel.send(embed=currentEmbed)
         else:
             await channel.send("Nobody has statistics for " + attribute)
             
