@@ -1,4 +1,5 @@
 from MarbleManager import marbleManager
+from twitter import tweet
 
 commands = [
     "**help:** you just used it", 
@@ -46,6 +47,8 @@ async def processCommand(message, commandPrefix, client):
         parts = command.split()
         if len(parts) == 2:
             await marbleManager.leaderboard(message.author, message.channel, parts[1], client)
+        elif len(parts) == 1:
+            await marbleManager.leaderboard(message.author, message.channel, "marbles", client)
         else:
             await message.channel.send("leaderboard should have 2 parts seperated by a space dumbo.")  
             
@@ -73,7 +76,12 @@ async def processCommand(message, commandPrefix, client):
             if userInput[x:len(userInput)-x] != "":
                 output+=blah+"\n"
 
-        await message.channel.send("```\n" + output + "```")    
+        await message.channel.send("```\n" + output + "```")   
+        
+    elif command.split()[0] == "tweet":
+        userInput = command[len(command.split()[0])+1:]
+        tweet(userInput) 
+        await message.channel.send("https://twitter.com/onsclom") 
         
     else:
         await message.channel.send("Command not recognized. " + commandPrefix + "help to see commands.")
