@@ -10,6 +10,10 @@ commands = [
     "**give [x] [@user]:** where x is amount of marbles to give"
     ]
 
+async def sup(message):
+    supperName = message.author.name if message.author.nick == None else message.author.nick
+    await message.channel.send('sup ' + supperName)
+
 async def timedReward(client):
     await marbleManager.dailyReward(client)
 
