@@ -52,10 +52,12 @@ async def processCommand(message, commandPrefix, client):
     elif command.split()[0] == "give":
         parts = command.split()
         if len(parts) == 3:
-            if not parts[1].isdigit():
-                await message.channel.send("You didn't specify a number correctly dumbo.")
-            else:
+            if parts[1].isdigit():
                 await marbleManager.give(message.author, message.channel, int(parts[1]), message.mentions[0])
+            elif parts[2].isdigit():
+                await marbleManager.give(message.author, message.channel, int(parts[2]), message.mentions[0])
+            else:
+                await message.channel.send("You didn't specify a number correctly dumbo.")
         else:
             await message.channel.send("give should have 3 parts.")
             
