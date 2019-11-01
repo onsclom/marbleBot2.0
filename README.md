@@ -9,4 +9,5 @@ Discord bot written in python. Keeps track of marbles, allows users to trade, an
 3. pip install the following dependencies:
   -python-dotenv
   -discord.py
+  -tweepy
 4. Run bot.py with python

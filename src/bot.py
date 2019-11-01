@@ -1,7 +1,7 @@
 import os
 import discord
 from dotenv import load_dotenv
-from commands import processCommand, timedReward
+from commands import processCommand, timedReward, sup
 
 commandPrefix = "!"
 
@@ -17,6 +17,9 @@ class MyClient(discord.Client):
         print('Message from {0.author}: {0.content}'.format(message))     
         if message.content[0] == commandPrefix:
             await processCommand(message, commandPrefix, client)
+        if message.content == 'sup':
+            await sup(message)
+
 
 client = MyClient()
 client.run(token)
