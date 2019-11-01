@@ -7,7 +7,7 @@ class MarbleManager:
     
     async def dailyReward(self, client):
         rewardAmount = 1 # Amount to give
-        interval = 60 * 60 * 6 # 6 hours
+        interval = 60 * 60 * 1 #hours
         while True:
             await asyncio.sleep(interval)
             print("rewarding now!")

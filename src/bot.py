@@ -3,7 +3,7 @@ import discord
 from dotenv import load_dotenv
 from commands import processCommand, timedReward, sup
 
-commandPrefix = "!"
+commandPrefix = "."
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
