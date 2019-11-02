@@ -7,8 +7,9 @@ commands = [
     "**register:** register and recieve a random amount of marbles from 20 to 40",
     "**profile:** shows your current marble amount",
     "**coinflip [x]:** bets x marbles on a 50/50",
-    "**leaderboard [x]:** where x is attribute (like marbles)",
-    "**give [x] [@user]:** where x is amount of marbles to give"
+    "**leaderboard [x]:** where x is attribute (like marbles). if no x given, marbles will be shown.",
+    "**give [x] [@user]:** where x is amount of marbles to give. order doesn't matter.",
+    "**tweet [message]** will tweet message to marble bot's twitter"
     ]
 
 async def sup(message):
