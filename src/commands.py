@@ -48,7 +48,7 @@ async def processCommand(message, commandPrefix, client):
         else:
             await message.channel.send("coinflip should have 2 parts seperated by a space dumbo.")
             
-    elif command.split()[0] == "leaderboard":
+    elif command.split()[0] == "leaderboard" or command.split()[0] == "lb":
         parts = command.split()
         if len(parts) == 2:
             await marbleManager.leaderboard(message.author, message.channel, parts[1], client)
