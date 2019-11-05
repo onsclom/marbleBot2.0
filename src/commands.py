@@ -9,7 +9,8 @@ commands = [
     "**coinflip [x]:** bets x marbles on a 50/50",
     "**leaderboard [x]:** where x is attribute (like marbles). if no x given, marbles will be shown.",
     "**give [x] [@user]:** where x is amount of marbles to give. order doesn't matter.",
-    "**tweet [message]** will tweet message to marble bot's twitter"
+    "**tweet [message]** will tweet message to marble bot's twitter",
+    "sup"
     ]
 
 async def sup(message):
